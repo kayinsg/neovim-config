@@ -1,0 +1,16 @@
+function getAbstractions()
+	callback = require("abstractions")
+	return callback
+end
+
+getAbstractions()
+
+-- Function Keys
+Normal("sg", "<cmd>lua cookieCutterQuestionTemplate()<CR>")
+Normal("<Leader>e", "<cmd>lua explainScript()<CR>")
+Normal("<Leader>c", "<cmd>lua refactoringScript()<CR>")
+Normal("<Leader>s", "<cmd>lua gatherDocumentationInsights()<CR>")
+Normal("<leader>P", "<cmd>lua pythonScript()<CR>")
+Normal("<leader>D", "<cmd>lua pythonDebugger()<CR>")
+Normal("<leader>m", "<cmd>lua explainBuddhism()<CR>")
+Normal("<leader>i", "<cmd>lua rephraseScript()<CR>")
