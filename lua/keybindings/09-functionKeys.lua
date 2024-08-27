@@ -3,7 +3,13 @@ function getAbstractions()
 	return callback
 end
 
+function getPrompts()
+	callback = require("customPrompts")
+	return callback
+end
+
 getAbstractions()
+getPrompts()
 
 -- Function Keys
 Normal("sg", "<cmd>lua cookieCutterQuestionTemplate()<CR>")
