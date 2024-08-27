@@ -18,22 +18,5 @@ require("autocommands")
 require("colorscheme")
 require("foldmarkers")
 require("lsp.init")
---}}
--- Config For Specifcally For Programming
---{{
--- LSP Settings
---{{
--- require("lsp.settings.LSPResponseProcessors")
--- require("lsp.main.IDEPackageManager")
--- require("lsp.main.formatter")
--- require("lsp.main.debugger")
--- require("lsp.main.treesitter")
--- require("lsp.main.linter")
--- require("lsp.languageSpecificConfig.python.pynvim")
--- require("lsp.LanguageServerProtocolSettings.pyright")
--- require("lsp.LanguageServerProtocolSettings.lua_ls.lua")
---}}
--- Pynvim
---{{
 require("lsp.languageSpecificConfig.python.pynvim")
 --}}
