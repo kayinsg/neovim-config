@@ -8,7 +8,8 @@ pylint.args = {
 }
 
 require("lint").linters_by_ft = {
-	python = { "pylint", "flake8", "mypy" },
+	python = { "pylint", "mypy" },
+	-- "flake8"
 	bash = { "shellcheck" },
 }
 -- lua = { "selene" },
@@ -46,7 +47,7 @@ autocommand("BufWinEnter", {
 autocommand("BufWritePost", {
 	group = "LSP",
 	pattern = "*",
-	desc = "Refresh Linter everytime I exit insert mode.",
+	desc = "",
 	callback = function()
 		-- try_lint without arguments runs the linters defined in `linters_by_ft`
 		-- for the current filetype

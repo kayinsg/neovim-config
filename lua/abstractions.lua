@@ -321,3 +321,20 @@ local function indentLine(numberOfSpaces, startAtBeginning)
 	local newLine = indentation .. currentLine
 	vim.api.nvim_set_current_line(newLine)
 end
+
+function joinLines()
+	local function deleteCharacterAtStartOfLine()
+		vim.cmd("normal! _d0X")
+	end
+
+	local function insertSpaceAtCursor()
+		vim.cmd("normal! i ")
+	end
+
+	local function executeCommandSequence()
+		deleteCharacterAtStartOfLine()
+		insertSpaceAtCursor()
+	end
+
+	executeCommandSequence()
+end

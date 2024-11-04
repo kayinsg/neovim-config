@@ -18,14 +18,14 @@ autocommandGroup("GitCommitAutocommands")
 autocommandGroup("Plugins")
 -- Page Position
 --{{
-autocommand("BufWinEnter", {
-	group = "pagePositioning",
-	pattern = "*.py, *.txt",
-	desc = "Position The Line At The Middle When Opening A file",
-	callback = function()
-		positionLineAtCenter()
-	end,
-})
+-- autocommand("BufWinEnter", {
+-- 	group = "pagePositioning",
+-- 	pattern = "*.py, *.txt",
+-- 	desc = "Position The Line At The Middle When Opening A file",
+-- 	callback = function()
+-- 		positionLineAtCenter()
+-- 	end,
+-- })
 
 autocommand("BufWinEnter", {
 	group = "pagePositioning",
@@ -198,47 +198,6 @@ autocommand("FileType", {
 })
 --}}
 --}}
--- Treesitter automatic Python format strings
-vim.api.nvim_create_augroup("py-fstring", { clear = true })
-vim.api.nvim_create_autocmd("InsertCharPre", {
-	pattern = { "*.py" },
-	group = "py-fstring",
-	--- @param opts AutoCmdCallbackOpts
-	--- @return nil
-	callback = function(opts)
-		-- Only run if f-string escape character is typed
-		if vim.v.char ~= "{" then
-			return
-		end
-
-		-- Get node and return early if not in a string
-		local node = vim.treesitter.get_node()
-
-		if not node then
-			return
-		end
-		if node:type() ~= "string" then
-			node = node:parent()
-		end
-		if not node or node:type() ~= "string" then
-			return
-		end
-
-		vim.print(node:type())
-		local row, col, _, _ = vim.treesitter.get_node_range(node)
-
-		-- Return early if string is already a format string
-		local first_char = vim.api.nvim_buf_get_text(opts.buf, row, col, row, col + 1, {})[1]
-		vim.print("row " .. row .. " col " .. col)
-		vim.print("char: '" .. first_char .. "'")
-		if first_char == "f" then
-			return
-		end
-
-		-- Otherwise, make the string a format string
-		vim.api.nvim_input("<Esc>m'" .. row + 1 .. "gg" .. col + 1 .. "|if<Esc>`'la")
-	end,
-})
 
 -- Autostart
 --{{
@@ -298,30 +257,32 @@ vim.api.nvim_create_autocmd("InsertCharPre", {
 -- Call the search_forward function
 -- search_forward("something")
 -- Factory Autocommands
-
--- autocommand("CmdlineLeave", {
--- group = searchUtilities,
--- pattern = "/,\\?",
--- desc = "Clear the Assorted highlight (not CurSearch) when leaving search mode",
--- callback = function()
--- setHighlight(0, "Assorted", {})
--- deferFunction(function()
--- vim.opt.hlsearch = true
--- end, 5)
--- end,
 -- })"
 -- TODO (Organize)
 --{{
--- autocommand({ "InsertEnter", "CursorMoved" }, {
--- group = vim.api.nvim_create_augroup("Assorted", { clear = true }),
--- pattern = "*",
--- desc = "Clear the search highlights after the cursor is moved",
--- callback = function()
--- vim.schedule(function()
--- vim.cmd("nohlsearch")
--- end)
--- end,
--- })
+autocommand({ "InsertEnter", "CursorMoved" }, {
+	group = vim.api.nvim_create_augroup("Assorted", { clear = true }),
+	pattern = "*",
+	desc = "Clear the search highlights after the cursor is moved",
+	callback = function()
+		vim.schedule(function()
+			vim.cmd("nohlsearch")
+		end)
+	end,
+})
 
 -- })
 --}}
+-- vim.wo.number = true
+
+-- local function toggleRelativeNumber()
+-- local isRelative = vim.fn.mode() == "n" or vim.fn.mode() == "v"
+-- vim.wo.relativenumber = isRelative and vim.wo.number
+-- end
+
+-- local numberToggleGroup = vim.api.nvim_create_augroup("NumberToggle", { clear = true })
+
+-- vim.api.nvim_create_autocmd(
+-- { "BufEnter", "FocusGained", "InsertLeave", "WinEnter", "CmdlineLeave", "CmdlineEnter" },
+-- { group = numberToggleGroup, callback = toggleRelativeNumber }
+-- )

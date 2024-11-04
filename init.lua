@@ -20,3 +20,14 @@ require("foldmarkers")
 require("lsp.init")
 require("lsp.languageSpecificConfig.python.pynvim")
 --}}
+-- Create an event handler for the FileType autocommand
+-- vim.api.nvim_create_autocmd("FileType", {
+-- pattern = "python",
+-- callback = function(args)
+-- vim.lsp.start({
+-- name = "pyright",
+-- cmd = { "/usr/bin/pyright", "--stdio" },
+-- root_dir = vim.fs.dirname(vim.fs.find({ "pyproject.toml", "setup.py" }, { upward = true })[1]),
+-- })
+-- end,
+-- })

@@ -9,7 +9,7 @@ getAbstractions()
 --}}
 
 local function setBackgroundColor()
-	setHighlight("Normal", { ctermbg = 0, bg = "#000000" })
+	setHighlight("Normal", { ctermbg = 0, bg = "#282828" })
 end
 
 local function setLineNumberColors()
@@ -26,9 +26,9 @@ local function setColorScheme(schemeName)
 end
 
 local function applyColorSettings()
-	local colorScheme = "moonfly"
+	local colorScheme = "midnight"
 	setColorScheme(colorScheme)
-	setBackgroundColor()
+	-- setBackgroundColor()
 	setLineNumberColors()
 	setSearchHighlight()
 	vim.opt.signcolumn = "no"

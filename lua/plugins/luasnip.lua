@@ -256,6 +256,18 @@ local function stringRepresentationOfInstanceVariables()
 		),
 	})
 end
+
+local function initMethod()
+	createSnippet("python", {
+		SnippetContent(
+			"init",
+			format("def __init__(self, {}):\n{}", {
+				input(1, "firstAttribute, secondAttribute, thirdAttribute"),
+				executeFunction(generateSelfAssignments, { 1 }),
+			})
+		),
+	})
+end
 -- Call the function to add the snippet()
 classTemplate()
 instanceMethod()
@@ -269,3 +281,4 @@ NamedTuple()
 printStatementWithFStrings()
 printStatementWithFormat()
 stringRepresentationOfInstanceVariables()
+initMethod()

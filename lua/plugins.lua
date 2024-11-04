@@ -53,6 +53,7 @@ local plugins = {
 			"kristijanhusak/vim-dadbod-completion",
 		},
 	},
+	-- },
 
 	{
 		"L3MON4D3/LuaSnip",
@@ -134,7 +135,8 @@ local plugins = {
 			"theHamsta/nvim-dap-virtual-text",
 		},
 		config = function()
-			require("lsp.main.debugger")
+			require("plugins.debugger")
+			require("plugins.debuggerUI")
 		end,
 	},
 
@@ -166,27 +168,7 @@ local plugins = {
 	-- Elimnate Lag When Escaping From Insert Mode
 	{ "max397574/better-escape.nvim" },
 	{ "dhruvasagar/vim-open-url" },
-	-- LSP Highlighting
-	{ "dhruvasagar/vim-open-url" },
-	-- LSP Highlighting
-	{
-		"RRethy/vim-illuminate",
-		ft = { "python" },
-		config = function()
-			require("illuminate").configure({
-				-- Add any custom configuration here
-			})
-		end,
-	},
 	{ "dstein64/vim-startuptime" },
-
-	{
-		"wfxr/minimap.vim",
-		dependencies = {
-			"wfxr/code-minimap",
-		},
-	},
-
 	-- Colorschemes
 	{ "bluz71/vim-moonfly-colors" },
 	{ "uncleTen276/dark_flat.nvim" },
@@ -246,6 +228,11 @@ local plugins = {
 	{
 		"numToStr/FTerm.nvim",
 	},
+	{
+		"sitiom/nvim-numbertoggle",
+	},
+	{ "nvim-neotest/nvim-nio" },
+	{ "folke/neodev.nvim" },
 }
 
 -- Persist And Toggle Multiple Terminals During An Editing Session

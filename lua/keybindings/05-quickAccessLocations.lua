@@ -21,6 +21,7 @@ Normal("<Leader>55", ":Oil /home/kayinfire/.config/nvim/lua/lsp/LanguageServerPr
 Normal("<Leader>11", ":e! /home/kayinfire/.config/nvim/init.lua<CR>")
 Normal("<Leader>3", ":e! /home/kayinfire/.config/nvim/lua/plugins.lua<CR>")
 Normal("<Leader>4", ":e! /home/kayinfire/.config/nvim/lua/abstractions.lua<CR>")
+Normal("<Leader>44", ":e! /home/kayinfire/.config/nvim/lua/customPrompts.lua<CR>")
 Normal(
 	"<Leader>d",
 	":e! /home/kayinfire/projects/python/doSomething/projects/dataAnalysisDataCleaner/dataCleaner.py<CR>"

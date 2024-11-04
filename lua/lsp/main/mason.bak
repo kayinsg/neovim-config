@@ -1,6 +1,5 @@
 local servers = {
 	"pyright",
-	-- Uncomment these as needed
 	-- "lua_ls",
 	-- "cssls",
 	-- "html",
@@ -29,20 +28,25 @@ require("mason-lspconfig").setup({
 	automatic_installation = true,
 })
 
-local lspconfig = require("lspconfig")
+local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
+if not lspconfig_status_ok then
+	return
+end
 
-local opts = {
-	on_attach = require("lsp.settings.LSPResponseProcessors").on_attach,
-	capabilities = require("lsp.settings.LSPResponseProcessors").capabilities,
-}
+local opts = {}
 
 for _, server in pairs(servers) do
-	local server_opts = vim.deepcopy(opts)
+	opts = {
+		on_attach = require("lsp.settings.LSPResponseProcessors").on_attach,
+		capabilities = require("lsp.settings.LSPResponseProcessors").capabilities,
+	}
 
-	local has_custom_opts, custom_opts = pcall(require, "lsp.LanguageServerProtocolSettings." .. server)
-	if has_custom_opts then
-		server_opts = vim.tbl_deep_extend("force", server_opts, custom_opts)
+	server = vim.split(server, "@")[1]
+
+	local require_ok, conf_opts = pcall(require, "lsp.LanguageServerProtocolSettings" .. server)
+	if require_ok then
+		opts = vim.tbl_deep_extend("force", conf_opts, opts)
 	end
 
-	lspconfig[server].setup(server_opts)
+	lspconfig[server].setup(opts)
 end

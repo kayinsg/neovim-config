@@ -53,6 +53,8 @@ end
 
 -- LSP Keymaps
 --{{
+vim.o.updatetime = 250
+vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})]])
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
 	local keymap = vim.api.nvim_buf_set_keymap
@@ -61,7 +63,7 @@ local function lsp_keymaps(bufnr)
 	keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 	keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 	keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	keymap(bufnr, "n", "l;", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	keymap(bufnr, "n", "lo", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 	keymap(bufnr, "n", "-0", "<cmd>lua vim.lsp.buf.format{ async = false }<CR>", opts)
 	keymap(bufnr, "n", "<leader>li", "<cmd>LspInfo<CR>", opts)
 	keymap(bufnr, "n", "<leader>lI", "<cmd>LspInstallInfo<CR>", opts)
