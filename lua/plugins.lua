@@ -29,6 +29,40 @@ local plugins = {
 	},
 	-- Auto-Complete
 	{
+		"lukas-reineke/indent-blankline.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("ibl").setup({
+				indent = {
+					char = "│",
+					tab_char = "│",
+				},
+				scope = { enabled = true },
+				exclude = {
+					filetypes = {
+						"help",
+						"alpha",
+						"dashboard",
+						"neo-tree",
+						"Trouble",
+						"lazy",
+						"mason",
+						"notify",
+						"toggleterm",
+						"lazyterm",
+					},
+				},
+			})
+		end,
+	},
+	-- {
+	-- 	"shellRaining/hlchunk.nvim",
+	-- 	event = { "BufReadPre", "BufNewFile" },
+	-- 	config = function()
+	-- 		require("hlchunk").setup(highlightcode)
+	-- 	end,
+	-- },
+	{
 		"hrsh7th/nvim-cmp",
 		event = { "InsertEnter" },
 		config = function()
@@ -176,6 +210,7 @@ local plugins = {
 	{ "bluz71/vim-nightfly-colors" },
 	{ "dasupradyumna/midnight.nvim" },
 	{ "ellisonleao/gruvbox.nvim" },
+	{ "scottmckendry/cyberdream.nvim" },
 
 	-- LSP
 	-- Enable LSP
@@ -233,6 +268,12 @@ local plugins = {
 	},
 	{ "nvim-neotest/nvim-nio" },
 	{ "folke/neodev.nvim" },
+
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 }
 
 -- Persist And Toggle Multiple Terminals During An Editing Session
