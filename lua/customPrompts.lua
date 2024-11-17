@@ -159,7 +159,7 @@ Observe the conditions specified below and answer the question that succeeds the
 
 	appendedQuestions = [[
 
-1. Rephrase the above with more clarity. ]]
+1. Rephrase the above with more clarity. Please return in paragraph form. I want it to read like a book, not bite-sized pieces of information ]]
 
 	local buffer = 0 -- Use 0 for the current buffer
 	local totalLines = vim.api.nvim_buf_line_count(buffer)
@@ -308,7 +308,7 @@ Give a detailed account of the above according to the concerns of the following 
         1.3.3. Highlight any conditional statements or loops, explaining their conditions and iterations
 
 2. Return Value Analysis
-    For this section, only one is to be analyzed: the one which is returned from the function
+    In this context, focus on analyzing only one specific item: the item that is returned by the function.
     2.1
         Object Return
         Type of object returned
@@ -443,9 +443,14 @@ function refactoringScript()
 	textToInsert = [[
 Observe the following.
 Ensure that your answers satisfies the following conditions:
-    1. Strongly conforms forms to clean code principles as much as is possible.
-    2. Has meaningful variable and functions names.
-    3. ALL methods and variable names are in camelCase.
+    1. Each line has a maximum length of 72 characters
+    2. To achieve the first condition, functions with long parameter components are spread across in a multiline logic
+    3. Each method in the code accounts for 
+        3.1. the fact that it resides within a class and therefore the function keyword "def" has 4 spaces preceding it        
+        3.2. As a result of 3.1., uppermost content within the method subsequent to "def" has 8 spaces preceding it, and so on.        
+        3.3. It is essential that you get these stipulations right, as it is frustrating to have to adjust the indentation format
+    4. Absolutely avoids the use of backslashes 
+    5. The format of the code achieves maximum attractivness with respct to readability
 ]]
 
 	-- Insert the text at the beginning of the buffer
@@ -453,7 +458,7 @@ Ensure that your answers satisfies the following conditions:
 
 	appendedQuestions = [[
 
-1. Produce clean code from the above.]]
+1. Format the above according to the conditions specifed above. Return in python code blocks]]
 
 	local buffer = 0 -- Use 0 for the current buffer
 	local totalLines = vim.api.nvim_buf_line_count(buffer)

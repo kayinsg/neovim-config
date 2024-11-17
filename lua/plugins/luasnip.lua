@@ -59,13 +59,13 @@ local function instanceMethod()
 			"def",
 			format(
 				[[
-            def {}(self, {}) -> {}:
+            def {}({}, {}):
                 {}
         ]],
 				{
 					input(1, "functionName"),
-					input(2, "parameters"),
-					input(3, "returnType"),
+					input(2, "self"),
+					input(3, "parameters"),
 					input(4, "functionBody"),
 				}
 			)
@@ -116,55 +116,10 @@ local function importStatement()
 	})
 end
 
-local function AbstractInterface()
-	createSnippet("python", {
-		SnippetContent(
-			"abst",
-			format(
-				[[
-from abc import ABC, abstractmethod
-
-class {}(ABC):
-    @abstractmethod
-    def {}(self, {}) -> {}:
-        pass
-
-class {}({}):
-    def {}(self, {}) -> {}:
-        {}
-
-class {}({}):
-    def {}(self, {}) -> {}:
-        {}
-
-]],
-				{
-					input(1, "AbstractClass"),
-					input(2, "abstractMethod"),
-					input(3, "parameters"),
-					input(4, "returnType"),
-					input(5, "ConcreteClass"),
-					rep(1), -- Reference to the AbstractClass input
-					input(6, "concreteFunction"),
-					input(7, "parameters"),
-					input(8, "returnType"),
-					input(9, "functionBody"),
-					input(10, "AnotherConcreteClass"),
-					rep(1), -- Reference to the AbstractClass input
-					input(11, "anotherConcreteFunction"),
-					input(12, "parameters"),
-					input(13, "returnType"),
-					input(14, "functionBody"),
-				}
-			)
-		),
-	})
-end
-
 local function objectStorage()
 	createSnippet("python", {
 		SnippetContent(
-			"iobj",
+			"obj",
 			format("{} = {}({})", {
 				input(1, "object"),
 				input(2, "Class"),
@@ -190,67 +145,77 @@ end
 local function NamedTuple()
 	createSnippet("python", {
 		SnippetContent(
-			"ntup",
+			"nt",
 			format(
 				[[
-from collections import namedtuple
-
-{} = namedtuple('{}', [{}])
-{} = {}({})
+class {}(NamedTuple):
+    {}: {}
+    {}: {}
+    {}: {}
 ]],
 				{
-					input(1, "TupleName"),
-					rep(1),
-					input(2, "'field1', 'field2'"),
-					input(3, "instance"),
-					rep(1),
-					input(4, "value1, value2"),
+					input(1, "NameOfStruct"),
+					input(2, "A"),
+					input(3, "TypeA"),
+					input(4, "B"),
+					input(5, "TypeB"),
+					input(6, "C"),
+					input(7, "TypeC"),
 				}
 			)
 		),
 	})
 end
 
-local function printStatementWithFStrings()
+local function printEmptyLine()
+	createSnippet("python", {
+		SnippetContent("pre", format('print("")', {})),
+	})
+end
+
+local function printLogStatement()
+	createSnippet("python", {
+		SnippetContent(
+			"prl",
+			format(
+				[[
+                    print('{}:')
+                ]],
+				{
+					input(1, "Statement To Terminal"), -- First input node
+				}
+			)
+		),
+	})
+end
+
+local function printPlainVariable()
+	createSnippet("python", {
+		SnippetContent(
+			"prv",
+			format(
+				[[
+                    print({})
+                ]],
+				{
+					input(1, "variable"), -- First input node
+				}
+			)
+		),
+	})
+end
+
+local function formattedPrint()
 	createSnippet("python", {
 		SnippetContent(
 			"pr",
-			format('print(f"{}")', {
-				input(1, "informationToBePrinted"),
-			})
-		),
-	})
-end
-
-local function printStatementWithFormat()
-	createSnippet("python", {
-		SnippetContent(
-			"pri",
-			format('print("{}".format({}))', {
-				input(1, "informationToBePrinted"),
-				input(2, "variableInput"),
-			})
-		),
-	})
-end
-
-local function stringRepresentationOfInstanceVariables()
-	createSnippet("python", {
-		SnippetContent(
-			"stR",
 			format(
 				[[
-            def __str__(self) -> str:
-                return f"""
-                {{self.{}}} =
-                {{self.{}}} =
-                {{self.{}}} =
-                """"
-        ]],
+                    print(f'{}{}')
+                ]],
 				{
-					input(1, "firstInstanceVariable"),
-					input(2, "secondInstanceVariable"),
-					input(3, "thirdInstanceVariable"),
+					input(1, "The Quick Brown Fox Jumped Over"), -- First input node
+					input(2, "The Moon"), -- Adding the second input node for the second part
 				}
 			)
 		),
@@ -261,24 +226,31 @@ local function initMethod()
 	createSnippet("python", {
 		SnippetContent(
 			"init",
-			format("def __init__(self, {}):\n{}", {
-				input(1, "firstAttribute, secondAttribute, thirdAttribute"),
-				executeFunction(generateSelfAssignments, { 1 }),
-			})
+			format(
+				[[
+                                    def __init__(self, {}):
+                                {}
+]],
+				{
+					input(1, "firstAttribute, secondAttribute, thirdAttribute"),
+					executeFunction(generateSelfAssignments, { 1 }),
+				}
+			)
 		),
 	})
 end
+
 -- Call the function to add the snippet()
 classTemplate()
 instanceMethod()
+printLogStatement()
+printPlainVariable()
+formattedPrint()
 staticMethod()
 listOfValues()
 importStatement()
-AbstractInterface()
 functionReturnStorage()
 objectStorage()
 NamedTuple()
-printStatementWithFStrings()
-printStatementWithFormat()
-stringRepresentationOfInstanceVariables()
+printEmptyLine()
 initMethod()

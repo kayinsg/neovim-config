@@ -21,7 +21,7 @@ autocommand("FileType", {
 	end,
 })
 
--- Set custom fold markers for Lua files
+-- Set custom fold markers for script files
 autocommand("FileType", {
 	group = "FoldMarkers",
 	pattern = "zsh, sh, txt, '/home/kayinfire/.config/i3/config'",

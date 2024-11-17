@@ -161,18 +161,18 @@ local plugins = {
 	},
 
 	-- Debugger
-	{
-		"mfussenegger/nvim-dap",
-		event = "VeryLazy",
-		dependencies = {
-			"rcarriga/nvim-dap-ui",
-			"theHamsta/nvim-dap-virtual-text",
-		},
-		config = function()
-			require("plugins.debugger")
-			require("plugins.debuggerUI")
-		end,
-	},
+	-- {
+	-- "mfussenegger/nvim-dap",
+	-- event = "VeryLazy",
+	-- dependencies = {
+	-- "rcarriga/nvim-dap-ui",
+	-- "theHamsta/nvim-dap-virtual-text",
+	-- },
+	-- config = function()
+	-- require("plugins.debugger")
+	-- require("plugins.debuggerUI")
+	-- end,
+	-- },
 
 	-- Linter
 	{
@@ -201,7 +201,7 @@ local plugins = {
 	},
 	-- Elimnate Lag When Escaping From Insert Mode
 	{ "max397574/better-escape.nvim" },
-	{ "dhruvasagar/vim-open-url" },
+	-- { "dhruvasagar/vim-open-url" },
 	{ "dstein64/vim-startuptime" },
 	-- Colorschemes
 	{ "bluz71/vim-moonfly-colors" },
@@ -266,8 +266,8 @@ local plugins = {
 	{
 		"sitiom/nvim-numbertoggle",
 	},
-	{ "nvim-neotest/nvim-nio" },
-	{ "folke/neodev.nvim" },
+	-- { "nvim-neotest/nvim-nio" },
+	-- { "folke/neodev.nvim" },
 
 	{
 		"ThePrimeagen/harpoon",

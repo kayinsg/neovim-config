@@ -8,8 +8,7 @@ pylint.args = {
 }
 
 require("lint").linters_by_ft = {
-	python = { "pylint", "mypy" },
-	-- "flake8"
+	python = { "pylint", "mypy", "flake8" },
 	bash = { "shellcheck" },
 }
 -- lua = { "selene" },

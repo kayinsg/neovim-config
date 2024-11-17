@@ -1,6 +1,6 @@
 require("mini.align").setup()
-require("mini.indentscope").setup()
 require("mini.bufremove").setup()
 require("mini.cursorword").setup()
 require("mini.surround").setup()
+-- require("mini.indentscope").setup()
 -- require("mini.trailspace").setup()

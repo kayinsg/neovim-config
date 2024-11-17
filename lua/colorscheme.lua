@@ -26,7 +26,7 @@ local function setColorScheme(schemeName)
 end
 
 local function applyColorSettings()
-	local colorScheme = "dark_flat"
+	local colorScheme = "moonfly"
 	setColorScheme(colorScheme)
 	setBackgroundColor()
 	setLineNumberColors()
