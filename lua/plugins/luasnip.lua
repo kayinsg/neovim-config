@@ -169,17 +169,33 @@ end
 
 local function printEmptyLine()
 	createSnippet("python", {
-		SnippetContent("pre", format('print("")', {})),
+		SnippetContent("prE", format('print("")', {})),
 	})
 end
 
-local function printLogStatement()
+local function printInfoLog()
 	createSnippet("python", {
 		SnippetContent(
-			"prl",
+			"pri",
 			format(
 				[[
-                    print('{}:')
+                    print('[ INFO ] {}')
+                ]],
+				{
+					input(1, "Statement To Terminal"), -- First input node
+				}
+			)
+		),
+	})
+end
+
+local function printErrorLog()
+	createSnippet("python", {
+		SnippetContent(
+			"pre",
+			format(
+				[[
+                    print('[ ERROR ] {}')
                 ]],
 				{
 					input(1, "Statement To Terminal"), -- First input node
@@ -243,7 +259,8 @@ end
 -- Call the function to add the snippet()
 classTemplate()
 instanceMethod()
-printLogStatement()
+printInfoLog()
+printErrorLog()
 printPlainVariable()
 formattedPrint()
 staticMethod()
