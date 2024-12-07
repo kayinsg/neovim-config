@@ -184,7 +184,6 @@ function changeToNextBuffer()
 		executeOnCommandLine("bnext")
 	end)
 end
-
 -- Close All Buffers Except Current Closes All Buffers Except The Current One
 --{{
 function closeAllBuffersExceptCurrent()

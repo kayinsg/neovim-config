@@ -25,3 +25,6 @@ Normal("qp", ":wq!<CR>")
 Normal("<Tab>", ":lua require('oil').open()<CR>")
 -- Open Terminal
 Normal("<S-Tab>", ":lua require('FTerm').toggle()<CR>")
+
+Normal("[<Tab>", ":norm [[zt<CR>")
+Normal("]<Tab>", ":norm ]]zt<CR>")

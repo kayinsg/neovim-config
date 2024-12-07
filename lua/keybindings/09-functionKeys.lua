@@ -13,7 +13,7 @@ getPrompts()
 
 -- Function Keys
 Normal("sg", "<cmd>lua cookieCutterQuestionTemplate()<CR>")
-Normal("<Leader>e", "<cmd>lua explainScript()<CR>")
+Normal("<leader>e", "<cmd>lua explainScript()<CR>")
 Normal("<Leader>c", "<cmd>lua refactoringScript()<CR>")
 Normal("es", "<cmd>lua gatherDocumentationInsights()<CR>")
 Normal("<leader>P", "<cmd>lua pythonScript()<CR>")

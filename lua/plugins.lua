@@ -204,7 +204,7 @@ local plugins = {
 	-- { "dhruvasagar/vim-open-url" },
 	{ "dstein64/vim-startuptime" },
 	-- Colorschemes
-        { 'projekt0n/github-nvim-theme', name = 'github-theme' },
+	{ "projekt0n/github-nvim-theme", name = "github-theme" },
 	{ "bluz71/vim-moonfly-colors" },
 	{ "uncleTen276/dark_flat.nvim" },
 	{ "rebelot/kanagawa.nvim" },
