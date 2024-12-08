@@ -130,9 +130,6 @@ local plugins = {
 	{
 		"ibhagwan/fzf-lua",
 		cmd = "FzfLua",
-		keys = {
-			{ "<leader>fi", ":FzfLua files<CR>", desc = "FzfLua" },
-		},
 		config = function()
 			require("plugins.fzf").setup()
 		end,

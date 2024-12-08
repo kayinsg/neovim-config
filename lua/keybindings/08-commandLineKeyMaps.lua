@@ -16,8 +16,6 @@ Command("kj", ":r !cd %:p:h && pwd | xsel -ib<CR>")
 -- Misc
 -- Exit CommandLine Mode
 Normal("<Leader>q", ":q<CR>")
--- Open command line history for Neovim
-Normal("<Leader><Leader>", "q:")
 
 -- QuickFix
 -- Open QuickFix
@@ -30,12 +28,15 @@ Normal("<Leader>p", ":cp<CR>")
 Normal("<Leader>n", ":cn<CR>")
 
 -- Ripgrep
-Normal("<Leader>f", ":Rg ")
--- Search Files Within Current Directory
--- Normal("<Leader>fj", ":FzfLua files<CR>")
+Normal("<Leader>f", ":lua require('fzf-lua').grep()<CR>")
+Normal("<leader>fi", ":lua require('fzf-lua').files({ resume = true })<CR>")
 -- Search Buffers
 Normal("kl", ":lua require('fzf-lua').buffers()<CR>")
--- Search Registers
-Normal("jh", ":lua require('fzf-lua').registers()<CR>")
--- Search Keymaps
-Normal("gh", ":lua require('fzf-lua').keymaps()<CR>")
+-- Access Old Files
+Normal("kj", ":lua require('fzf-lua').oldfiles()<CR>")
+-- Grep For Word Under Cursor
+Normal("<leader>fw", ":lua require('fzf-lua').Grep_cword()<CR>")
+-- Grep Command History
+Normal("<Leader><Leader>", ":lua require('fzf-lua').command_history()<CR>")
+-- Grep Search History
+Normal("<leader>\\", ":lua require('fzf-lua').search_history()<CR>")
