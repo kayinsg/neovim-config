@@ -290,52 +290,47 @@ Ensure that your answers satisfy the following conditions:
 	appendedQuestions = [[
 
 Give a detailed account of the above according to the concerns of the following framework:
+1.1. 
+    Dependencies(and any potential side effects)
+1.2. 
+    General Description
+    Purpose
+    Positional Arguments (Embolden The Heading)
+    Optional Arguments (Embolden The Heading)
+1.3. 
+    At least 3 examples of output returned from the object / function
 
-1. Function Analysis
-    1.1. 
-        Dependencies(and any potential side effects)
-    1.2. 
-        General Description
-        Purpose of the function
-        Positional Arguments (Embolden The Heading)
-        Optional Arguments (Embolden The Heading)
-        Expected output (or any side effects)
-        
-    1.3. 
-        Algorithm and Logic
-        1.3.1. Provide a detailed, sequential breakdown of the function's logic
-        1.3.2. Explain each step's purpose and how it contributes to the overall goal
-        1.3.3. Highlight any conditional statements or loops, explaining their conditions and iterations
+---START OF CONTEXT
+In this context, focus on analyzing only one specific item: the one that is returned by the function.
+2.1
+    Object Return
+    Type of object returned
+    Structure and properties of the object
+    Common methods associated with the object
+    How the object is typically used in further operations
+2.2
+    Void Return (Modifies Data)
+    What data is modified
+    How the data is modified
+    Where the modified data is stored or used
+2.3 
+    Boolean Return
+    Conditions for True
+    Conditions for False
+    Edge cases or exceptions
 
-2. Return Value Analysis
-    In this context, focus on analyzing only one specific item: the item that is returned by the function.
-    2.1
-        Object Return
-        Type of object returned
-        Structure and properties of the object
-        Common methods associated with the object
-        How the object is typically used in further operations
-    2.2
-        Void Return (Modifies Data)
-        What data is modified
-        How the data is modified
-        Where the modified data is stored or used
-    2.3 
-        Boolean Return
-        Conditions for True
-        Conditions for False
-        Edge cases or exceptions
+--- END OF CONTEXT --
+3.1
+    Algorithm and Logic
+    3.3.1. Provide a detailed, sequential breakdown of the function's logic
+    3.3.2. Explain each step's purpose and how it contributes to the overall goal
+    3.3.3. Highlight any conditional statements or loops, explaining their conditions and iterations
+3.2. 
+    Error Handling
+    How the function handles unexpected inputs
+    Any error messages or exceptions thrown
 
-3. Code Implementation
-    3.1. 
-        Code snippets demonstrating typical usage
-        Common use cases
-    3.2. 
-        Error Handling
-        How the function handles unexpected inputs
-        Any error messages or exceptions thrown
-
-    Please format your answers with emboldened section names for improved clarity
+Please format your answers with emboldened section names for improved clarity
 ]]
 
 	local buffer = 0 -- Use 0 for the current buffer

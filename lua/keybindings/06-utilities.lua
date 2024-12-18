@@ -51,9 +51,6 @@ Insert("kj", "<C-o>")
 -- Vim will go to position in clipboard
 Normal("==", ":e <C-r>+<CR>")
 
--- Say "Fuck You" to nvim objections to normal operations
--- Normal("jk", "<C-c>")
-
 -- Comment.str Keymap Changes
 Normal("<Leader>w", ":norm gcc<CR>")
 
@@ -78,3 +75,6 @@ Normal("rt", ":ClearRegisters<CR>")
 
 -- Edit Buffer (Insert name of buffer after command)
 Normal("se", ":Regtabedit ")
+Normal("<leader>s", ":lua require('treesj').toggle()<CR>")
+
+Normal("/", ":SearchBoxIncSearch<CR>")

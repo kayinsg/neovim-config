@@ -179,10 +179,15 @@ local function printInfoLog()
 			"pri",
 			format(
 				[[
+                    print("")
+                    print('[ SOURCE ]: {}')
                     print('[ INFO ] {}')
+                    print({})
                 ]],
 				{
-					input(1, "Statement To Terminal"), -- First input node
+					input(1, "statementToTerminal"), -- First input node
+					input(2, "sourceOfInfo"),
+					input(3, "variableToLog"),
 				}
 			)
 		),
@@ -195,10 +200,13 @@ local function printErrorLog()
 			"pre",
 			format(
 				[[
+                    print("")
                     print('[ ERROR ] {}')
+                    print('{}')
                 ]],
 				{
 					input(1, "Statement To Terminal"), -- First input node
+					input(2, "Error Message"),
 				}
 			)
 		),

@@ -33,9 +33,11 @@ Normal("<leader>fi", ":lua require('fzf-lua').files({ resume = true })<CR>")
 -- Search Buffers
 Normal("kl", ":lua require('fzf-lua').buffers()<CR>")
 -- Access Old Files
-Normal("kj", ":lua require('fzf-lua').oldfiles()<CR>")
+Normal("o<Tab>", ":lua require('fzf-lua').oldfiles()<CR>")
 -- Grep For Word Under Cursor
-Normal("<leader>fw", ":lua require('fzf-lua').Grep_cword()<CR>")
+Normal("<leader>fw", function()
+	require("fzf-lua").grep_cword()
+end)
 -- Grep Command History
 Normal("<Leader><Leader>", ":lua require('fzf-lua').command_history()<CR>")
 -- Grep Search History

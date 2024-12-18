@@ -27,6 +27,47 @@ local plugins = {
 			require("plugins.mini-nvim")
 		end,
 	},
+	{
+		"VonHeikemen/searchbox.nvim",
+		requires = { "MunifTanjim/nui.nvim" },
+		event = "VeryLazy",
+		config = function()
+			require("searchbox").setup({
+				defaults = {
+					reverse = false,
+					exact = false,
+					prompt = " ",
+					modifier = "disabled",
+					confirm = "off",
+					clear_matches = true,
+					show_matches = false,
+				},
+				popup = {
+					relative = "win",
+					position = { row = "5%", col = "95%" },
+					size = 30,
+					border = {
+						style = "rounded",
+						text = { top = " Search ", top_align = "left" },
+					},
+					win_options = {
+						winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+					},
+				},
+				hooks = {
+					before_mount = function(input)
+						-- Add your code here
+					end,
+					after_mount = function(input)
+						-- Add your code here
+					end,
+					on_done = function(value, search_type)
+						-- Add your code here
+					end,
+				},
+			})
+		end,
+	},
 	-- Auto-Complete
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -53,6 +94,13 @@ local plugins = {
 					},
 				},
 			})
+		end,
+	},
+	{
+		"Wansmer/treesj",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("plugins.splitjoin")
 		end,
 	},
 	-- {
@@ -98,6 +146,17 @@ local plugins = {
 
 	{ "nvim-lua/plenary.nvim" },
 	-- Enhanced Buffer Tab
+
+	{
+		"kevinhwang91/nvim-bqf",
+		ft = "qf",
+		dependencies = {
+			{ "junegunn/fzf", build = "./install --bin" },
+		},
+		config = function()
+			require("bqf").setup({})
+		end,
+	},
 	{
 		"akinsho/bufferline.nvim",
 		event = "BufReadPost",
