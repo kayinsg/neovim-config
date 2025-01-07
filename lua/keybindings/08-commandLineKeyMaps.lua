@@ -23,9 +23,9 @@ Normal("<Leader>o", ":copen<CR>")
 -- Close QuickFix
 Normal("<Leader>oo", ":cclose<CR>")
 -- Previous Entry on Quickfix
-Normal("<Leader>p", ":cp<CR>")
+Normal("<Leader>p", ":cprev | norm zz<CR>")
 -- Next Entry On QuickFix
-Normal("<Leader>n", ":cn<CR>")
+Normal("<Leader>n", ":cnext | norm zz<CR>")
 
 -- Ripgrep
 Normal("<Leader>f", ":lua require('fzf-lua').grep()<CR>")

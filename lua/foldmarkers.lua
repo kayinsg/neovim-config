@@ -10,24 +10,27 @@ getAbstractions()
 
 -- Fold Markers
 autocommandGroup("FoldMarkers")
---{{
+local homeDirectory = os.getenv("HOME")
+
+-- Create an autocommand group for fold markers
+vim.api.nvim_create_augroup("FoldMarkers", { clear = true })
+
 -- Set custom fold markers for Lua files
-autocommand("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
 	group = "FoldMarkers",
 	pattern = "lua",
-	desc = "Folder Markers for Lua Files",
+	desc = "Fold Markers for Lua Files",
 	callback = function()
 		vim.opt_local.foldmarker = "--{{,--}}"
 	end,
 })
 
 -- Set custom fold markers for script files
-autocommand("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
 	group = "FoldMarkers",
-	pattern = "zsh, sh, txt, '/home/kayinfire/.config/i3/config'",
-	desc = "Fold Markers fro Script Files",
+	pattern = { "zsh", "sh", "txt", homeDirectory .. "/.config/i3/config" },
+	desc = "Fold Markers for Script Files",
 	callback = function()
 		vim.opt_local.foldmarker = "##++,##--"
 	end,
 })
---}}

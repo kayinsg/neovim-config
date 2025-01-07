@@ -7,16 +7,13 @@ end
 
 getAbstractions()
 --}}
--- Normal Mode
-Normal("--", ":MinimapToggle<CR>")
-
 -- Visual Mode
 -- Move Text Up and Down
 Visual("<A-j>", ":m .+1<CR>==")
 Visual("<S-j>", ":move'>+<CR>gv=gv")
 Visual("<S-k>", ":move-2<CR>gv=gv")
 
- -- Copy to Clipboard
+-- Copy to Clipboard
 Visual("<C-c>", "+y")
 
 -- Terminal Mode

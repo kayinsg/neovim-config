@@ -35,18 +35,11 @@ local function classTemplate()
             class {}:
                 def __init__(self, {}):
             {}
-
-                def {}(self, {}) -> {}:
-                    {}
         ]],
 				{
 					input(1, "ClassName"),
 					input(2, "firstAttribute, secondAttribute, thirdAttribute"),
 					executeFunction(generateSelfAssignments, { 2 }),
-					input(3, "functionName"),
-					input(4, "parameters"),
-					input(5, "returnType"),
-					input(6, "functionBody"),
 				}
 			)
 		),
@@ -70,37 +63,6 @@ local function instanceMethod()
 				}
 			)
 		),
-	})
-end
-
-local function staticMethod()
-	createSnippet("python", {
-		SnippetContent(
-			"static",
-			format(
-				[[
-    @staticmethod
-    def {}({}) -> {}:
-        {}
-                ]],
-				{
-					input(1, "functionName"),
-					input(2, "parameters"),
-					input(3, "returnType"),
-					input(4, "functionBody"),
-				}
-			)
-		),
-	})
-end
-
-local function listOfValues()
-	createSnippet("python", {
-		SnippetContent("lis", {
-			text("list(["),
-			input(1, "firstElement, secondElement, thirdElement"),
-			text("])"),
-		}),
 	})
 end
 
@@ -271,8 +233,6 @@ printInfoLog()
 printErrorLog()
 printPlainVariable()
 formattedPrint()
-staticMethod()
-listOfValues()
 importStatement()
 functionReturnStorage()
 objectStorage()

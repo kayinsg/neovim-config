@@ -9,7 +9,6 @@ getAbstractions()
 --}}
 
 -- Quick Shortcuts
-Normal("rt", ":so /home/kayinfire/.config/nvim/init.lua<CR>")
 Normal("<leader>r", ":reg / 1 2 3 4 5 a b c d e f g j k l w x z <CR>")
 Normal("qq", ":qa!<CR>")
 Normal("qw", ":bdelete!<CR>")

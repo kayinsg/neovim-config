@@ -209,7 +209,6 @@ function EnterVimgrepCommand()
 end
 
 --}}
-
 --}}
 -- nvim-lint.lua
 -- oiler.lua

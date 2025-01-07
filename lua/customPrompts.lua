@@ -179,7 +179,7 @@ function explainScript()
 
 	-- Quote the entire text in the current buffer using surround.nvim plugin
 	-- Simulate the keystrokes for the surround.nvim plugin command
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('ggsaG"', true, false, true), "x", false)
+	vim.api.nvim_feedkeys('ggsaG"', "x", false)
 
 	-- Go to the start of the buffer
 	vim.api.nvim_feedkeys("gg", "n", false)
@@ -211,7 +211,6 @@ Ensure your answers meet these criteria:
         5.2 Use short paragraphs (3-5 sentences) to maintain reader engagement
         5.3 If lists are necessary, embed them within paragraphs
 ]]
-
 	-- Insert the text at the beginning of the buffer
 	vim.api.nvim_buf_set_lines(0, 0, 0, false, vim.split(textToInsert, "\n"))
 

@@ -27,25 +27,6 @@ autocommandGroup("Plugins")
 -- 	end,
 -- })
 
-autocommand("BufWinEnter", {
-	group = "pagePositioning",
-	pattern = "/home/kayinfire/.config/nvim/lua/user/autocommands.lua",
-	desc = "Go To The High-Level Section Of The Autocommands File And Position The Line At The Top Of The Page",
-	callback = function()
-		executeOnCommandLine("norm 10G") -- Scroll the current line to the top of the window
-		positionLineAtTop()
-	end,
-})
-autocommand("BufWinEnter", {
-	group = "pagePositioning",
-	pattern = "/home/kayinfire/.config/nvim/lua/plugins.lua",
-	desc = "Go To The Utilities Section Of The Plugins File And Position It At The Top",
-	callback = function()
-		executeOnCommandLine("norm 21G")
-		positionLineAtTop()
-	end,
-})
-
 autocommand("BufReadPost", {
 	group = "pagePositioning",
 	pattern = "*",
@@ -76,14 +57,6 @@ autocommand("BufWinEnter", {
 	desc = "Remove Automatic Commenting Present in Neovim's Default Behavior",
 	callback = function()
 		vim.opt.formatoptions:remove({ "c", "r", "o" })
-	end,
-})
-autocommand("BufReadPre", {
-	group = "Assorted",
-	pattern = { "python" },
-	desc = "Activate python Environment Prior to Entering a python file into buffer",
-	callback = function()
-		executeOnCommandLine("!source /home/kayinfire/projects/python/.venv/bin/activate")
 	end,
 })
 autocommand("FileType", {

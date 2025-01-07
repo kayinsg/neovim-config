@@ -267,8 +267,6 @@ local plugins = {
 	{ "bluz71/vim-nightfly-colors" },
 	{ "dasupradyumna/midnight.nvim" },
 	{ "ellisonleao/gruvbox.nvim" },
-	{ "scottmckendry/cyberdream.nvim" },
-
 	-- LSP
 	-- Enable LSP
 	{
