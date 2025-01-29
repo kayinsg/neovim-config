@@ -148,16 +148,6 @@ local plugins = {
 	-- Enhanced Buffer Tab
 
 	{
-		"kevinhwang91/nvim-bqf",
-		ft = "qf",
-		dependencies = {
-			{ "junegunn/fzf", build = "./install --bin" },
-		},
-		config = function()
-			require("bqf").setup({})
-		end,
-	},
-	{
 		"akinsho/bufferline.nvim",
 		event = "BufReadPost",
 		config = function()
