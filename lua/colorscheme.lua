@@ -26,7 +26,7 @@ local function setSearchHighlight()
 end
 
 local function applyColorSettings()
-	local colorScheme = "github_dark_high_contrast"
+	local colorScheme = "midnight"
 	setColorScheme(colorScheme)
 	-- setBlackBackgroundColor()
 	setLineNumberColors()
