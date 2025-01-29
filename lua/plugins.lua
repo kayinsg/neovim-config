@@ -290,6 +290,7 @@ local plugins = {
 		end,
 		dependencies = { "winston0410/cmd-parser.nvim" },
 	},
+	{ "mfussenegger/nvim-jdtls" },
 	-- Lua Formatter
 	{ "ckipp01/stylua-nvim" },
 	-- Git
