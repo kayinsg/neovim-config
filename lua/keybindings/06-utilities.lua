@@ -5,10 +5,6 @@ end
 
 getAbstractions()
 
--- Quick Append
-Normal("ka", ":norm k$a<CR>")
-Normal("ja", ":norm j$a<CR>")
-
 -- Identation
 -- Indent Forward Without Taking your hands off the home row
 Normal("gl", ":norm >> <CR>")
