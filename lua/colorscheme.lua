@@ -9,7 +9,7 @@ getAbstractions()
 --}}
 
 local function setColorScheme(schemeName)
-	vim.cmd("colorscheme " .. schemeName)
+	vim.cmd.colorscheme("noctishc")
 end
 
 local function setBlackBackgroundColor()
@@ -26,7 +26,7 @@ local function setSearchHighlight()
 end
 
 local function applyColorSettings()
-	local colorScheme = "midnight"
+	local colorScheme = "noctishc"
 	setColorScheme(colorScheme)
 	-- setBlackBackgroundColor()
 	setLineNumberColors()
