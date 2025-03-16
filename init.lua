@@ -1,3 +1,11 @@
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function(args)
+		local arg = args.file
+		if vim.fn.isdirectory(arg) == 1 then
+			vim.cmd("Oil " .. arg)
+		end
+	end,
+})
 -- Keymap Configuration
 --{{
 require("keybindings.01-globalKeymapSettings")
