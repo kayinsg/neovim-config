@@ -252,6 +252,7 @@ local plugins = {
 	-- Colorschemes
 	{ "projekt0n/github-nvim-theme", name = "github-theme" },
 	{ "bluz71/vim-moonfly-colors" },
+	{ "iagorrr/noctishc.nvim" },
 	{ "uncleTen276/dark_flat.nvim" },
 	{ "rebelot/kanagawa.nvim" },
 	{ "bluz71/vim-nightfly-colors" },
