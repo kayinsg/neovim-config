@@ -141,6 +141,7 @@ local function setupOilGitConfig()
 end
 
 require("oil").setup({
+	disableNetrw(),
 	default_file_explorer = true,
 	columns = { "icon" },
 	buf_options = setupOilBufferOptions(),
@@ -166,5 +167,3 @@ require("oil").setup({
 	ssh = { border = "rounded" },
 	keymaps_help = { border = "rounded" },
 })
-
-disableNetrw()
