@@ -31,7 +31,7 @@ local function applyColorSettings()
 	-- setBlackBackgroundColor()
 	setLineNumberColors()
 	setSearchHighlight()
-	vim.opt.signcolumn = "no"
+	vim.opt.signcolumn = "yes"
 end
 
 applyColorSettings()
