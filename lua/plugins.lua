@@ -169,10 +169,15 @@ local plugins = {
 	},
 	-- Enhanced Marks
 	{
-		"chentoast/marks.nvim",
-		event = "VeryLazy",
+		"2KAbhishek/markit.nvim",
 		config = function()
-			require("marks").setup()
+			require("markit").setup()
+		end,
+	},
+	{
+		"folke/persistence.nvim",
+		config = function()
+			require("persistence").setup()
 		end,
 	},
 	-- FZF
