@@ -26,7 +26,7 @@ end
 local function setupOilWindowOptions()
 	return {
 		wrap = false,
-		signcolumn = "no",
+		signcolumn = "yes",
 		cursorcolumn = false,
 		foldcolumn = "0",
 		spell = false,
