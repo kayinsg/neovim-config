@@ -336,3 +336,95 @@ function joinLines()
 
 	executeCommandSequence()
 end
+
+function ripgrepSearch()
+	-- Get and format the working directory for display
+	local pwd = vim.fn.getcwd()
+	local display_path = vim.fn.fnamemodify(pwd, ":~") -- Get shortened path
+	local final_components = display_path:match("([^/]+/[^/]+/[^/]+/?)$")
+		or display_path:match("([^/]+/[^/]+/?)$")
+		or display_path
+
+	local search = vim.fn.input("search(" .. final_components .. "):")
+	if search == "" then
+		return
+	end
+
+	-- Convert Vim regex to Perl-compatible for rg
+	local pattern = vim.fn.substitute(search, [[\\v]], "", "g")
+	local cmd = string.format(
+		'rg --vimgrep --smart-case --hidden --glob "!{.git,node_modules}" -- %s',
+		vim.fn.shellescape(pattern)
+	)
+	vim.fn.setqflist({}, " ", { lines = vim.fn.systemlist(cmd) })
+	vim.cmd("copen")
+end
+
+function ripgrepCurrentBuffer()
+	local filepath = vim.api.nvim_buf_get_name(0) -- Get current buffer path
+	if filepath == "" then
+		vim.notify("No file is currently open", vim.log.levels.WARN)
+		return
+	end
+
+	local search_term = vim.fn.input("search(CurrentFile):")
+	if search_term == "" then
+		return
+	end
+
+	-- Use rg with --file flag to search only in current file
+	local cmd = string.format(
+		"rg --vimgrep --smart-case -- %s %s",
+		vim.fn.shellescape(search_term),
+		vim.fn.shellescape(filepath)
+	)
+
+	local results = vim.fn.systemlist(cmd)
+	if vim.v.shell_error ~= 0 then
+		vim.notify("No matches found", vim.log.levels.INFO)
+		return
+	end
+
+	vim.fn.setqflist({}, " ", {
+		lines = results,
+		efm = "%f:%l:%c:%m", -- Explicit error format matching
+	})
+	vim.cmd("copen")
+end
+
+function ripgrepCurrentWord()
+	-- Get word under cursor with Vim's smartcase behavior
+	local current_word = vim.fn.expand("<cword>")
+	local smartcase = ""
+
+	-- Implement Vim-style smartcase: lowercase = case insensitive, uppercase = sensitive
+	if current_word:lower() == current_word then
+		smartcase = "--ignore-case"
+	else
+		smartcase = "--case-sensitive"
+	end
+
+	-- Get and format working directory
+	local pwd = vim.fn.getcwd()
+	local display_path = vim.fn.fnamemodify(pwd, ":~")
+	local final_components = display_path:gsub("(.*[/\\])([^/\\]+[/\\][^/\\]+[/\\][^/\\]+)$", "%2")
+		or display_path:gsub("(.*[/\\])([^/\\]+[/\\][^/\\]+)$", "%2")
+		or display_path
+
+	-- Build ripgrep command
+	local cmd = string.format(
+		'rg --vimgrep %s --hidden --glob "!{.git,node_modules}" -- %s',
+		smartcase,
+		vim.fn.shellescape(current_word)
+	)
+
+	-- Execute and show results
+	vim.fn.setqflist({}, " ", { lines = vim.fn.systemlist(cmd) })
+	vim.cmd("copen")
+	local pwd = vim.fn.getcwd()
+	local display_path = vim.fn.fnamemodify(pwd, ":~") -- Get shortened path
+	local final_components = display_path:match("([^/]+/[^/]+/[^/]+/?)$")
+		or display_path:match("([^/]+/[^/]+/?)$")
+		or display_path
+	vim.api.nvim_echo({ { "search(" .. final_components .. "):" .. current_word, "Comment" } }, true, {})
+end
