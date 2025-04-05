@@ -72,5 +72,3 @@ Normal("rt", ":ClearRegisters<CR>")
 -- Edit Buffer (Insert name of buffer after command)
 Normal("se", ":Regtabedit ")
 Normal("<leader>s", ":lua require('treesj').toggle()<CR>")
-
-Normal("/", ":SearchBoxIncSearch<CR>")
