@@ -428,3 +428,123 @@ function ripgrepCurrentWord()
 		or display_path
 	vim.api.nvim_echo({ { "search(" .. final_components .. "):" .. current_word, "Comment" } }, true, {})
 end
+
+function setUpPythonTestSuite()
+	-- Insert at line 0 (becomes first line)
+	vim.api.nvim_buf_set_lines(0, 0, 0, false, { "import unittest" })
+
+	-- Insert at line 1 (now line 1 after first insert)
+	vim.api.nvim_buf_set_lines(0, 1, 1, false, { "from colour_runner.runner import ColourTextTestRunner" })
+
+	-- Get last line number
+	local last_line = vim.api.nvim_buf_line_count(0)
+
+	-- Append to end of file
+	vim.api.nvim_buf_set_lines(
+		0,
+		last_line,
+		last_line,
+		false,
+		{ "", "if __name__ == '__main__':", "    unittest.main(testRunner=ColourTextTestRunner())" }
+	)
+end
+
+function generateTestCase()
+	-- Step 0: Determine Structure Type and Insertion Point
+	vim.fn.inputsave()
+	local structure_type = vim.fn.input("Create function or class? [f/c]: ")
+	vim.fn.inputrestore()
+
+	-- 0.1-0.3 Find insertion point (last empty line)
+	local buf = vim.api.nvim_get_current_buf()
+	local line_count = vim.api.nvim_buf_line_count(buf)
+	local insert_line = line_count
+
+	while insert_line > 0 do
+		local line_content = vim.api.nvim_buf_get_lines(buf, insert_line - 1, insert_line, false)[1]
+		if line_content:match("^%s*$") then -- Check if line is empty/whitespace
+			break
+		end
+		insert_line = insert_line - 1
+	end
+
+	-- Move cursor to insertion point
+	vim.api.nvim_win_set_cursor(0, { insert_line + 1, 0 })
+
+	-- Handle class case
+	if string.lower(structure_type) == "c" or string.lower(structure_type) == "class" then
+		-- Steps 1-3.1: Create class definition
+		vim.fn.inputsave()
+		local test_case_name = vim.fn.input("Enter General Test Case name: ")
+		vim.fn.inputrestore()
+
+		local class_def = "class " .. test_case_name .. "Tests(unittest.TestCase)"
+		vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { class_def })
+
+		-- Steps 4-5: Add empty lines
+		vim.api.nvim_buf_set_lines(buf, insert_line + 1, insert_line + 1, false, { "", "" })
+		insert_line = insert_line + 2
+	end
+
+	-- Common steps for both cases
+	-- Step 6: Get test function name
+	vim.fn.inputsave()
+	local test_func_name = vim.fn.input("Enter test case name (e.g. OpenFileWhenPathIsGiven): ")
+	vim.fn.inputrestore()
+
+	-- Step 7: Insert function definition
+	local func_def = "    def testShould" .. test_func_name .. "(self):"
+	vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { func_def })
+	insert_line = insert_line + 1
+
+	-- Step 8: Empty line
+	-- vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { "" })
+	-- insert_line = insert_line + 1
+
+	-- Steps 9-10: # GIVEN
+	vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { "        # GIVEN" })
+	insert_line = insert_line + 1
+
+	-- Step 11: 5 empty lines
+	for _ = 1, 5 do
+		vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { "        " })
+		insert_line = insert_line + 1
+	end
+
+	-- Step 12: # WHEN
+	vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { "        # WHEN" })
+	insert_line = insert_line + 1
+
+	-- Step 13: Empty line
+	vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { "        " })
+	insert_line = insert_line + 1
+
+	-- Step 14: # THEN
+	vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { "        # THEN" })
+	insert_line = insert_line + 1
+
+	-- Insert self.assertEqual() and two empty lines after it (all properly indented)
+	vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, {
+		"        self.assertEqual()",
+		"        ",
+		"        ",
+	})
+
+	-- Position cursor inside assertEqual parentheses
+	vim.api.nvim_win_set_cursor(0, { insert_line + 1, string.len("        self.assertEqual(") })
+	-- 1. Retrieve line number of previous "# GIVEN" search
+	local given_line = vim.fn.search("^\\s*# GIVEN", "bnW")
+
+	-- 2. Store in variable and 3. Increment by one
+	local target_line = given_line + 1
+
+	-- 4. Move cursor to the target line
+	vim.api.nvim_win_set_cursor(0, { target_line, 0 })
+	--
+	-- 1. Insert 9 spaces at current line
+	local current_line = vim.api.nvim_win_get_cursor(0)[1]
+	vim.api.nvim_buf_set_text(0, current_line - 1, 0, current_line - 1, 0, { "         " })
+
+	-- 2. Place cursor at column 9 (Lua uses 0-based columns)
+	vim.api.nvim_win_set_cursor(0, { current_line, 7 })
+end
