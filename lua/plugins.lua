@@ -1,5 +1,4 @@
 -- Lazy.nvim Startup
---{{
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -14,11 +13,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-	--}}
-	-- Plugins
-	--{{
 	-- UI Component for Neovim
 	{ "MunifTanjim/nui.nvim" },
+
 	-- Suite of Plugins
 	{
 		"echasnovski/mini.nvim",
@@ -27,6 +24,7 @@ local plugins = {
 			require("plugins.mini-nvim")
 		end,
 	},
+
 	-- Auto-Complete
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -55,6 +53,7 @@ local plugins = {
 			})
 		end,
 	},
+
 	{
 		"Wansmer/treesj",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -62,13 +61,7 @@ local plugins = {
 			require("plugins.splitjoin")
 		end,
 	},
-	-- {
-	-- 	"shellRaining/hlchunk.nvim",
-	-- 	event = { "BufReadPre", "BufNewFile" },
-	-- 	config = function()
-	-- 		require("hlchunk").setup(highlightcode)
-	-- 	end,
-	-- },
+
 	{
 		"hrsh7th/nvim-cmp",
 		event = { "InsertEnter" },
@@ -76,25 +69,16 @@ local plugins = {
 			require("plugins.cmp")
 		end,
 		dependencies = {
-			-- For Buffers
 			"hrsh7th/cmp-buffer",
-			-- For File Directories
 			"hrsh7th/cmp-path",
-			-- For The Ex-Command Line
 			"hrsh7th/cmp-cmdline",
-			-- LSP
 			"hrsh7th/cmp-nvim-lsp",
-			-- Lua Snippets
 			"L3MON4D3/LuaSnip",
-			-- For Auto Complete
 			"saadparwaiz1/cmp_luasnip",
-			-- More Snippets
 			"rafamadriz/friendly-snippets",
-			-- For SQL Querying
 			"kristijanhusak/vim-dadbod-completion",
 		},
 	},
-	-- },
 
 	{
 		"L3MON4D3/LuaSnip",
@@ -105,7 +89,7 @@ local plugins = {
 
 	{ "nvim-lua/plenary.nvim" },
 	-- Enhanced Buffer Tab
-
+	{ "nvim-neotest/nvim-nio" },
 	{
 		"akinsho/bufferline.nvim",
 		event = "BufReadPost",
@@ -114,6 +98,7 @@ local plugins = {
 		end,
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
+
 	-- File Navigation
 	{
 		"stevearc/oil.nvim",
@@ -126,6 +111,7 @@ local plugins = {
 			{ "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
 		},
 	},
+
 	-- Enhanced Marks
 	{
 		"2KAbhishek/markit.nvim",
@@ -147,6 +133,7 @@ local plugins = {
 			require("plugins.fzf").setup()
 		end,
 	},
+
 	-- Integrated RipGrep
 	{
 		"doums/rg.nvim",
@@ -156,15 +143,13 @@ local plugins = {
 	},
 
 	-- Plugin To Edit Non-System Buffers
-	{
-		"rbong/vim-buffest",
-	},
-
+	{ "rbong/vim-buffest" },
 	{ "iruzo/ripgrep.nvim", run = ':lua require("rg_setup").install_rg()' },
+
 	-- Tree-sitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		ft = { "lua", "python" }, -- add your frequently used filetypes
+		ft = { "lua", "python" },
 		config = function()
 			require("lsp.main.treesitter")
 		end,
@@ -192,10 +177,11 @@ local plugins = {
 			require("lsp.main.linter")
 		end,
 	},
+
 	-- Enhanced Statusbar
 	{
 		"nvim-lualine/lualine.nvim",
-		event = "BufReadPost ",
+		event = "BufReadPost",
 		config = function()
 			require("plugins.lualine")
 		end,
@@ -209,10 +195,11 @@ local plugins = {
 			require("plugins.autopairs")
 		end,
 	},
-	-- Elimnate Lag When Escaping From Insert Mode
+
+	-- Eliminate Lag When Escaping From Insert Mode
 	{ "max397574/better-escape.nvim" },
-	-- { "dhruvasagar/vim-open-url" },
 	{ "dstein64/vim-startuptime" },
+
 	-- Colorschemes
 	{ "projekt0n/github-nvim-theme", name = "github-theme" },
 	{ "bluz71/vim-moonfly-colors" },
@@ -222,12 +209,15 @@ local plugins = {
 	{ "bluz71/vim-nightfly-colors" },
 	{ "dasupradyumna/midnight.nvim" },
 	{ "ellisonleao/gruvbox.nvim" },
+
 	-- LSP
-	-- Enable LSP
 	{
 		"neovim/nvim-lspconfig",
-		require("lsp.settings.lspconfig"),
+		config = function()
+			require("lsp.settings.lspconfig")
+		end,
 	},
+
 	-- Language Server Installer
 	{
 		"williamboman/mason.nvim",
@@ -238,8 +228,10 @@ local plugins = {
 			"williamboman/mason-lspconfig.nvim",
 		},
 	},
+
 	-- Linters
 	{ "mfussenegger/nvim-lint" },
+
 	-- Formatting
 	{
 		"stevearc/conform.nvim",
@@ -255,30 +247,30 @@ local plugins = {
 		end,
 		dependencies = { "winston0410/cmd-parser.nvim" },
 	},
+
 	{ "mfussenegger/nvim-jdtls" },
+
 	-- Lua Formatter
 	{ "ckipp01/stylua-nvim" },
+
 	-- Git
 	{ "tpope/vim-fugitive" },
+
 	-- SQL
 	{
 		"tpope/vim-dadbod",
 		dependencies = {
 			"kristijanhusak/vim-dadbod-ui",
 		},
-		config = function()
-			-- require("plugins.dadbod")
-		end,
 	},
 
 	{
 		"numToStr/FTerm.nvim",
 	},
+
 	{
 		"sitiom/nvim-numbertoggle",
 	},
-	-- { "nvim-neotest/nvim-nio" },
-	-- { "folke/neodev.nvim" },
 
 	{
 		"ThePrimeagen/harpoon",
@@ -287,10 +279,5 @@ local plugins = {
 	},
 }
 
--- Persist And Toggle Multiple Terminals During An Editing Session
--- { "akinsho/toggleterm.nvim" },
---}}
 -- Call Lazy on the plugins
---{{
 require("lazy").setup(plugins)
---}}
