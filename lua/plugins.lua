@@ -91,6 +91,20 @@ local plugins = {
 	-- Enhanced Buffer Tab
 	{ "nvim-neotest/nvim-nio" },
 	{
+		"vim-test/vim-test",
+		config = function()
+			vim.cmd([[
+            let test#strategy = "basic"
+            let test#neovim#term_position = "belowright"
+            nmap <silent> <leader>T :TestNearest<CR>
+            nmap <silent> <leader>t :TestFile<CR>
+            nmap <silent> <leader>a :TestSuite<CR>
+            nmap <silent> <leader>l :TestLast<CR>
+            "nmap <silent> <leader>g :TestVisit<CR>
+        ]])
+		end,
+	},
+	{
 		"akinsho/bufferline.nvim",
 		event = "BufReadPost",
 		config = function()
