@@ -303,14 +303,22 @@ end
 --}}
 -- luasnip.lua
 --{{
-local function indentLine(numberOfSpaces, startAtBeginning)
+function indentLine()
+	-- Hardcoded to always start at beginning
+	local startAtBeginning = true
+
+	-- Get indentation level from user input (0-5)
+	local indentLevel = tonumber(vim.fn.input("Indentation level (0-5): ")) or 0
+	indentLevel = math.min(math.max(indentLevel, 0), 5) -- Clamp to 0-5 range
+
+	-- Convert level to spaces (0=0, 1=4, 2=8, 3=12, 4=16, 5=20)
+	local numberOfSpaces = indentLevel * 4
+
 	-- Get the current line content
 	local currentLine = vim.api.nvim_get_current_line()
 
-	-- If startAtBeginning is true, remove leading whitespace
-	if startAtBeginning then
-		currentLine = currentLine:match("^%s*(.*)")
-	end
+	-- Remove leading whitespace (since startAtBeginning is true)
+	currentLine = currentLine:match("^%s*(.*)")
 
 	-- Create indentation string
 	local indentation = string.rep(" ", numberOfSpaces)
@@ -430,6 +438,14 @@ function ripgrepCurrentWord()
 end
 
 function setUpPythonTestSuite()
+	-- 1. Get the filename of the current buffer
+	local filename = vim.api.nvim_buf_get_name(0)
+
+	-- 2. Check if the filename contains the word "test" (case insensitive)
+	if not string.lower(filename):find("test") then
+		return -- Exit if not a test file
+	end
+
 	-- Insert at line 0 (becomes first line)
 	vim.api.nvim_buf_set_lines(0, 0, 0, false, { "import unittest" })
 
@@ -450,6 +466,15 @@ function setUpPythonTestSuite()
 end
 
 function generateTestCase()
+	-- 1. Get the filename of the current buffer
+	local filename = vim.api.nvim_buf_get_name(0)
+
+	-- 2. Check if the filename contains the word "test" (case insensitive)
+	if not string.lower(filename):find("test") then
+		return -- Exit if not a test file
+	end
+
+	-- Rest of your original function implementation...
 	-- Step 0: Determine Structure Type and Insertion Point
 	vim.fn.inputsave()
 	local structure_type = vim.fn.input("Create function or class? [f/c]: ")
@@ -497,22 +522,30 @@ function generateTestCase()
 	vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { func_def })
 	insert_line = insert_line + 1
 
-	-- Step 8: Empty line
-	-- vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { "" })
-	-- insert_line = insert_line + 1
-
 	-- Steps 9-10: # GIVEN
-	vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { "        # GIVEN" })
+	vim.api.nvim_buf_set_lines(
+		buf,
+		insert_line,
+		insert_line,
+		false,
+		{ "        # GIVEN the following preconditions corresponding to the system under test:" }
+	)
 	insert_line = insert_line + 1
 
 	-- Step 11: 5 empty lines
-	for _ = 1, 5 do
+	for _ = 1, 1 do
 		vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { "        " })
 		insert_line = insert_line + 1
 	end
 
 	-- Step 12: # WHEN
-	vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { "        # WHEN" })
+	vim.api.nvim_buf_set_lines(
+		buf,
+		insert_line,
+		insert_line,
+		false,
+		{ "        # WHEN the following module is executed:" }
+	)
 	insert_line = insert_line + 1
 
 	-- Step 13: Empty line
@@ -520,7 +553,13 @@ function generateTestCase()
 	insert_line = insert_line + 1
 
 	-- Step 14: # THEN
-	vim.api.nvim_buf_set_lines(buf, insert_line, insert_line, false, { "        # THEN" })
+	vim.api.nvim_buf_set_lines(
+		buf,
+		insert_line,
+		insert_line,
+		false,
+		{ "        # THEN the observable behavior should be verified as stated below:" }
+	)
 	insert_line = insert_line + 1
 
 	-- Insert self.assertEqual() and two empty lines after it (all properly indented)
@@ -547,4 +586,217 @@ function generateTestCase()
 
 	-- 2. Place cursor at column 9 (Lua uses 0-based columns)
 	vim.api.nvim_win_set_cursor(0, { current_line, 7 })
+end
+
+function multiLineComment()
+	-- Save current relativenumber setting
+	local relative_number = vim.wo.relativenumber
+	local number = vim.wo.number
+
+	-- Switch to absolute line numbers
+	vim.wo.relativenumber = false
+	vim.wo.number = true
+
+	-- Get user input for start and end lines
+	local start_line = tonumber(vim.fn.input("Start line: "))
+	if not start_line then
+		print("Invalid start line")
+		return
+	end
+
+	local end_line = tonumber(vim.fn.input("End line: "))
+	if not end_line then
+		print("Invalid end line")
+		return
+	end
+
+	-- Restore original number settings
+	vim.wo.relativenumber = relative_number
+	vim.wo.number = number
+
+	-- Execute gcc for each line in range
+	for i = start_line, end_line do
+		vim.api.nvim_win_set_cursor(0, { i, 0 })
+		vim.cmd("normal gcc")
+	end
+end
+
+function navigateToNextTestStep()
+	-- Get current buffer's file name
+	local filename = vim.api.nvim_buf_get_name(0):lower()
+
+	-- Check if filename contains 'test'
+	if not filename:match("test") then
+		return
+	end
+
+	-- Define search patterns and their corresponding keys
+	local step_patterns = {
+		g = "# given",
+		w = "# when",
+		t = "# then",
+	}
+
+	-- Ask for user input
+	local input = vim.fn.input("Go to step (g/w/t): ")
+	input = input:lower()
+
+	-- Validate input
+	if not step_patterns[input] then
+		print("Invalid input. Use 'g', 'w', or 't'")
+		return
+	end
+
+	-- Get current line content
+	local current_line = vim.api.nvim_get_current_line():lower()
+	local pattern = step_patterns[input]
+	local search_cmd = "\\c" .. pattern -- \c for case insensitive
+
+	-- Check if we're already on a matching line
+	if current_line:match("^%s*" .. pattern .. "%s*$") then
+		-- Move cursor down one line before searching to find next occurrence
+		vim.cmd("normal! j")
+	end
+
+	-- Search for the pattern
+	local line_num = vim.fn.search(search_cmd, "W") -- W: don't wrap around
+
+	if line_num == 0 then
+		print("Pattern not found: " .. pattern)
+		-- Move back if we moved down earlier
+		if vim.api.nvim_win_get_cursor(0)[1] > 1 then
+			vim.cmd("normal! k")
+		end
+		return
+	end
+
+	-- Go to the line and place it at top of screen
+	vim.api.nvim_win_set_cursor(0, { line_num, 0 })
+	vim.cmd("normal! z.") -- 'zt' places line at top of screen
+end
+
+function navigateToPreviousTestStep()
+	-- Get current buffer's file name
+	local filename = vim.api.nvim_buf_get_name(0):lower()
+
+	-- Check if filename contains 'test'
+	if not filename:match("test") then
+		return
+	end
+
+	-- Define search patterns and their corresponding keys
+	local step_patterns = {
+		g = "# given",
+		w = "# when",
+		t = "# then",
+	}
+
+	-- Ask for user input
+	local input = vim.fn.input("Go to previous step (g/w/t): ")
+	input = input:lower()
+
+	-- Validate input
+	if not step_patterns[input] then
+		print("Invalid input. Use 'g', 'w', or 't'")
+		return
+	end
+
+	-- Get current line content
+	local current_line = vim.api.nvim_get_current_line():lower()
+	local pattern = step_patterns[input]
+	local search_cmd = "\\c" .. pattern -- \c for case insensitive
+
+	-- Check if we're already on a matching line
+	if current_line:match("^%s*" .. pattern .. "%s*$") then
+		-- Move cursor up one line before searching to find previous occurrence
+		vim.cmd("normal! k")
+	end
+
+	-- Search backward for the pattern
+	local line_num = vim.fn.search(search_cmd, "bW") -- b: backward, W: don't wrap around
+
+	if line_num == 0 then
+		print("Pattern not found: " .. pattern)
+		-- Move back if we moved up earlier
+		if vim.api.nvim_win_get_cursor(0)[1] < vim.api.nvim_buf_line_count(0) then
+			vim.cmd("normal! j")
+		end
+		return
+	end
+
+	-- Go to the line and place it at top of screen
+	vim.api.nvim_win_set_cursor(0, { line_num, 0 })
+	vim.cmd("normal! z.") -- 'zt' places line at top of screen
+end
+
+function goToProductionCode()
+	-- Get current file name
+	local current_file = vim.api.nvim_buf_get_name(0)
+
+	-- 0. Check if filename contains "test"
+	if not string.find(current_file:lower(), "test") then
+		return -- 0.2 Do nothing if not a test file
+	end
+
+	-- 1. Search for .py files in current directory
+	local dir = vim.fn.expand("%:p:h") -- Get directory of current file
+	local py_files = vim.fn.globpath(dir, "*.py", false, true)
+
+	-- 1.1 Remove .py extension
+	local fileMatches = {}
+	for _, file in ipairs(py_files) do
+		local base = vim.fn.fnamemodify(file, ":t:r") -- Get filename without extension
+		table.insert(fileMatches, base)
+	end
+
+	-- 3. Search for lines starting with "from" in current buffer
+	local imports = {}
+	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+	for _, line in ipairs(lines) do
+		if line:match("^from%s+") then
+			-- 4. Get second word (the module name)
+			local words = vim.split(line, "%s+")
+			if #words >= 2 then
+				table.insert(imports, words[2])
+			end
+		end
+	end
+
+	-- 5. Find matching production code file
+	productionCode = nil
+	for _, file in ipairs(fileMatches) do
+		if vim.tbl_contains(imports, file) then
+			productionCode = file .. ".py"
+			break
+		end
+	end
+
+	if not productionCode then
+		print("No matching production code found")
+		return
+	end
+
+	-- 6. Open the production code file
+	vim.cmd("edit " .. productionCode)
+
+	-- 7. Search for lines starting with "class"
+	local class_lines = {}
+	local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+	for i, line in ipairs(lines) do
+		if line:match("^class%s+") then
+			table.insert(class_lines, i)
+		end
+	end
+
+	if #class_lines == 0 then
+		print("No class definitions found")
+		return
+	end
+
+	-- 8. Go to the class definition closest to end of file
+	local target_line = class_lines[#class_lines] -- Last element
+	vim.api.nvim_win_set_cursor(0, { target_line, 0 })
+
+	-- 9. Place the line at top of screen
+	vim.cmd("normal! zt")
 end
