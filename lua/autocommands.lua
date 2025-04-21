@@ -138,67 +138,6 @@ autocommand("FileType", {
 	end,
 })
 
--- Autostart
---{{
--- Highlight Line When Opening a Buffer
--- autocommand("BufWinEnter",{
--- group="Assorted",
--- pattern="*",
--- desc="highlight current file when opening buffer",
--- callback=highlightLine("visual", 5000)
--- })
---}}
-
--- autocommand("VimEnter", {
--- group="Autostart",
--- desc = "Sync Lazy.nvim everytime I start Neovim",
--- callback = function()
--- executeOnCommandLine("silent! lua require('lazy').sync()")
--- end,
--- })
---}}
--- autocommand({ 'CmdlineEnter' }, {
--- group="Assorted",
--- pattern = "*",
--- desc="Center The Current Line At The Middle Of The Buffer Everytime I Enter Command Mode",
--- callback = function ()
--- positionLineAtCenter()
--- end,
---})
---}}
--- Assorted
---{{
--- Autocommand to turn off search highlighting when leaving the current buffer
--- vim.api.nvim_create_autocmd("BufLeave", {
--- callback = function()
--- vim.opt.hlsearch = false
--- end,
--- })
-
--- Autocommand to turn off search highlighting after saving the buffer
-
---}}
--- Buffers
---{{
--- TODO 2
---{{
--- local function search_forward(term)
--- Escape the search term for proper pattern matching
--- local escaped_term = vim.fn.escape(term, '\\')
-
--- Construct the search command
--- local search_cmd = '/' .. escaped_term .. '\\c\<CR>'
-
--- Use nvim_feedkeys to execute the search command
--- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(search_cmd, true, false, true), 'n', false)
--- end
-
--- Call the search_forward function
--- search_forward("something")
--- Factory Autocommands
--- })"
--- TODO (Organize)
---{{
 autocommand({ "InsertEnter", "CursorMoved" }, {
 	group = vim.api.nvim_create_augroup("Assorted", { clear = true }),
 	pattern = "*",
@@ -209,19 +148,3 @@ autocommand({ "InsertEnter", "CursorMoved" }, {
 		end)
 	end,
 })
-
--- })
---}}
--- vim.wo.number = true
-
--- local function toggleRelativeNumber()
--- local isRelative = vim.fn.mode() == "n" or vim.fn.mode() == "v"
--- vim.wo.relativenumber = isRelative and vim.wo.number
--- end
-
--- local numberToggleGroup = vim.api.nvim_create_augroup("NumberToggle", { clear = true })
-
--- vim.api.nvim_create_autocmd(
--- { "BufEnter", "FocusGained", "InsertLeave", "WinEnter", "CmdlineLeave", "CmdlineEnter" },
--- { group = numberToggleGroup, callback = toggleRelativeNumber }
--- )
