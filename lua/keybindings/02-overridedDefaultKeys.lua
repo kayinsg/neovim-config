@@ -21,9 +21,6 @@ Visual("qo", "<nop>")
 Normal("qp", "<nop>")
 Visual("qp", "<nop>")
 
--- Reserved for Making delimiters pretty and code significantly more readable
-Visual("-0", "<nop>")
-
 -- Already reserved for mini.surround
 Visual("-", "<nop>")
 
