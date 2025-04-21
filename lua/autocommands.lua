@@ -1,14 +1,10 @@
--- Retrieve Abstractions From abstractions.lua
---{{
 local function getAbstractions()
 	local callback = require("abstractions")
 	return callback
 end
 
 getAbstractions()
---}}
--- Autocommand Groups
---{{
+
 autocommandGroup("pagePositioning")
 autocommandGroup("Autostart")
 autocommandGroup("Buffers")
@@ -16,16 +12,6 @@ autocommandGroup("Assorted")
 autocommandGroup("LSP")
 autocommandGroup("GitCommitAutocommands")
 autocommandGroup("Plugins")
--- Page Position
---{{
--- autocommand("BufWinEnter", {
--- 	group = "pagePositioning",
--- 	pattern = "*.py, *.txt",
--- 	desc = "Position The Line At The Middle When Opening A file",
--- 	callback = function()
--- 		positionLineAtCenter()
--- 	end,
--- })
 
 autocommand("BufReadPost", {
 	group = "pagePositioning",
@@ -43,14 +29,6 @@ autocommand("InsertEnter", {
 	end,
 })
 
-autocommand("TextYankPost", {
-	group = "Assorted",
-	pattern = "*",
-	desc = "Highlight copied text for 5 seconds",
-	callback = function()
-		require("vim.highlight").on_yank({ higroup = "Visual", timeout = 5000 })
-	end,
-})
 autocommand("BufWinEnter", {
 	group = "Assorted",
 	pattern = "*",
@@ -112,14 +90,7 @@ autocommand("FileType", {
 		vim.keymap.set("n", "<space>q", ":bdelete<CR>", { noremap = true, silent = true, buffer = true })
 	end,
 })
---}}
 -- Git
---{{
---- Sets up autocommands for Git commit messages.
---
--- This function creates an autocommand group and sets up autocommands for the
--- 'gitcommit' filetype. It enables word wrapping and spell checking for better
--- readability and accuracy when writing Git commit messages.
 autocommand("FileType", {
 	pattern = "gitcommit",
 	desc = "Enable word wrapping for Git commit messages",
@@ -137,9 +108,7 @@ autocommand("FileType", {
 		vim.opt_local.spell = true
 	end,
 })
---}}
 -- Formatting
---{{
 -- Organize Code
 autocommand("BufWritePre", {
 	group = "LSP",
@@ -151,7 +120,6 @@ autocommand("BufWritePre", {
 })
 -- Linting
 -- Markdown
---{{
 -- Enable word wrapping for Markdown files
 autocommand("FileType", {
 	group = "Assorted",
@@ -169,8 +137,6 @@ autocommand("FileType", {
 		vim.opt_local.spell = true
 	end,
 })
---}}
---}}
 
 -- Autostart
 --{{
