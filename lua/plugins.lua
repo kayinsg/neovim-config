@@ -118,7 +118,7 @@ local plugins = {
 		"stevearc/oil.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			require("plugins.oiler")
+			require("plugins.oiler.oiler")
 		end,
 		cmd = "Oil",
 		keys = {
@@ -152,7 +152,7 @@ local plugins = {
 	{
 		"doums/rg.nvim",
 		config = function()
-			require("plugins.ripgrep")
+			require("plugins.ripgrep.ripgrep")
 		end,
 	},
 
@@ -168,7 +168,13 @@ local plugins = {
 			require("lsp.main.treesitter")
 		end,
 	},
-
+	{
+		"stevearc/quicker.nvim",
+		event = "FileType qf",
+		---@module "quicker"
+		---@type quicker.SetupOptions
+		opts = {},
+	},
 	-- Debugger
 	-- {
 	-- "mfussenegger/nvim-dap",
