@@ -14,10 +14,8 @@ Visual("gl", ":norm >> <CR>")
 Normal("Gl", ":norm << <CR>")
 Visual("Gl", ":norm << <CR>")
 
--- Double Indent Forward
-Normal("gL", ":normal >>>> <CR>")
-Visual("gL", ":normal >>>> <CR>")
-
+Normal("gL", ":lua indentLine()<CR>")
+--
 -- Repeats, Macros, Registers
 -- Repeat Register
 Normal("gk", "@@")
@@ -48,7 +46,8 @@ Insert("kj", "<C-o>")
 Normal("==", ":e <C-r>+<CR>")
 
 -- Comment.str Keymap Changes
-Normal("<Leader>w", ":norm gcc<CR>")
+Normal("<Leader>w", "<cmd>lua multiLineComment()<CR>")
+Normal("<Leader>e", "<cmd>lua goToNextModule()<CR>")
 
 -- Insert Em-Dash
 Insert("<leader>-", "—")
@@ -72,5 +71,8 @@ Normal("rt", ":ClearRegisters<CR>")
 -- Edit Buffer (Insert name of buffer after command)
 Normal("se", ":Regtabedit ")
 Normal("<leader>s", ":lua require('treesj').toggle()<CR>")
-Normal("<leader>pt", "<cmd>lua setUpPythonTestSuite()<CR>")
-Normal("<leader>pte", "<cmd>lua generateTestCase()<CR>")
+Normal("ts", "<cmd>lua setUpPythonTestSuite()<CR>")
+Normal("tn", "<cmd>lua generateTestCase()<CR>")
+Normal("pc", "<cmd>lua goToProductionCode()<CR>")
+Normal("<Tab>k", "<cmd>lua navigateToPreviousTestStep()<CR>")
+Normal("<Tab>j", "<cmd>lua navigateToNextTestStep()<CR>")
