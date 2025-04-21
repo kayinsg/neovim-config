@@ -28,14 +28,6 @@ autocommand("InsertEnter", {
 	end,
 })
 
-autocommand("BufWinEnter", {
-	group = "Assorted",
-	pattern = "*",
-	desc = "Remove Automatic Commenting Present in Neovim's Default Behavior",
-	callback = function()
-		vim.opt.formatoptions:remove({ "c", "r", "o" })
-	end,
-})
 autocommand("FileType", {
 	group = "Buffers",
 	pattern = "qf",
@@ -107,8 +99,7 @@ autocommand("FileType", {
 		vim.opt_local.spell = true
 	end,
 })
--- Formatting
--- Organize Code
+
 autocommand("BufWritePre", {
 	group = "LSP",
 	pattern = "*", -- Match all files
@@ -117,9 +108,16 @@ autocommand("BufWritePre", {
 		require("conform").format({ bufnr = args.buf })
 	end,
 })
--- Linting
--- Markdown
--- Enable word wrapping for Markdown files
+
+autocommand("BufWinEnter", {
+	group = "Assorted",
+	pattern = "*",
+	desc = "Remove Automatic Commenting Present in Neovim's Default Behavior",
+	callback = function()
+		vim.opt.formatoptions:remove({ "c", "r", "o" })
+	end,
+})
+
 autocommand("FileType", {
 	group = "Assorted",
 	pattern = "markdown",
