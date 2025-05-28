@@ -1,4 +1,5 @@
-local globalKeymapSettings = require("keybindings.01-globalKeymapSettings")
+require("abstractions")
+require("keybindings.globalKeymapSettings")
 
 -- Current Line
 Normal("<Leader>k", ":norm zt<CR>") -- Position Current Line at the top of the page

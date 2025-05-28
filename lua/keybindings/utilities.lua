@@ -1,9 +1,4 @@
-function getAbstractions()
-	callback = require("abstractions")
-	return callback
-end
-
-getAbstractions()
+require("keybindings.globalKeymapSettings")
 
 -- Identation
 -- Indent Forward Without Taking your hands off the home row
@@ -65,8 +60,6 @@ Normal("cg", ":norm ggcG<CR>")
 Normal("yg", ":norm ggyG<CR>")
 -- Surround Entire Buffer and Ask Question
 Normal("sg", "<cmd>lua cookieCutterQuestionTemplate()<CR>")
--- Clear all Registers
-Normal("rt", ":ClearRegisters<CR>")
 
 -- Edit Buffer (Insert name of buffer after command)
 Normal("se", ":Regtabedit ")

@@ -1,13 +1,4 @@
--- Retrieve Abstractions
---{{
-function getAbstractions()
-	callback = require("abstractions")
-	return callback
-end
-
-getAbstractions()
---}}
-require("keybindings.01-globalKeymapSettings")
+require("keybindings.globalKeymapSettings")
 
 -- Already reserved for saving and quitting
 Normal("qw", "<nop>")

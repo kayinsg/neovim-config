@@ -1,9 +1,5 @@
-function getAbstractions()
-	callback = require("abstractions")
-	return callback
-end
-
-getAbstractions()
+require("abstractions")
+require("keybindings.globalKeymapSettings")
 
 -- Directory-Related
 -- Native
@@ -28,9 +24,6 @@ Normal("<Leader>p", ":cprev | norm zz<CR>")
 Normal("<Leader>n", ":cnext | norm zz<CR>")
 
 -- RipGrep Search
-Normal("<leader>f", ripgrepSearch)
-Normal("<leader>ff", ripgrepCurrentBuffer)
-Normal("<leader>fw", ripgrepCurrentWord)
 Normal("<leader>fi", ":lua require('fzf-lua').files({ resume = true })<CR>")
 -- Search Buffers
 Normal("kl", ":lua require('fzf-lua').buffers()<CR>")
