@@ -7,7 +7,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 	end,
 })
 
-require("plugins.init")
 require("keybindings.globalKeymapSettings")
 require("keybindings.overiddenDefaultKeys")
 require("keybindings.navigation")
@@ -17,6 +16,7 @@ require("keybindings.utilities")
 require("keybindings.positioning")
 require("keybindings.commandLine")
 require("keybindings.functions")
+require("plugins.init")
 
 require("options")
 require("plugins")
