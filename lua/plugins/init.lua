@@ -13,7 +13,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-	require("plugins.mini"),
 	require("plugins.vimtest"),
 	require("plugins.oil"),
 	require("plugins.fzf"),
