@@ -10,8 +10,6 @@ Command("kl", ':let @+ = expand("%:p")<CR>')
 -- Copy Current Directory of file to clipboard
 Command("kj", ":r !cd %:p:h && pwd | xsel -ib<CR>")
 -- Misc
--- Exit CommandLine Mode
-Normal("<Leader>q", ":q<CR>")
 
 -- QuickFix
 -- Open QuickFix
