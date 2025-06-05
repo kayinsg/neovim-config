@@ -12,7 +12,6 @@ Visual("qo", "<nop>")
 Normal("qp", "<nop>")
 Visual("qp", "<nop>")
 
--- Already reserved for mini.surround
 Visual("-", "<nop>")
 
 --Replace Default Forward and Backward
