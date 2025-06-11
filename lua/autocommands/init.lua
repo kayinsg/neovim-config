@@ -1,9 +1,27 @@
-local function getAbstractions()
-	local callback = require("abstractions")
-	return callback
+function autocommand(event, opts)
+	local autocmd_opts = {
+		group = opts.group,
+		pattern = opts.pattern,
+		desc = opts.desc or false,
+		once = opts.once or false,
+		nested = opts.nested or false,
+	}
+
+	if opts.callback then
+		autocmd_opts.callback = opts.callback
+	elseif opts.command then
+		autocmd_opts.command = opts.command
+	else
+		error("Either 'callback' or 'command' must be provided")
+	end
+	vim.api.nvim_create_autocmd(event, autocmd_opts)
 end
 
-getAbstractions()
+function autocommandGroup(group_name)
+	local group_id = vim.api.nvim_create_augroup(group_name, { clear = true })
+	return group_id
+end
+
 autocommandGroup("pagePositioning")
 autocommandGroup("Autostart")
 autocommandGroup("Buffers")
@@ -24,7 +42,7 @@ autocommand("InsertEnter", {
 	pattern = "*",
 	desc = "Reorient page everytime I type new code",
 	callback = function()
-		positionLineAtCenter()
+		vim.cmd("normal! zz")
 	end,
 })
 
@@ -37,18 +55,7 @@ autocommand("FileType", {
 	end,
 })
 
-autocommand("BufHidden", {
-	group = "Buffers",
-	desc = "Delete unnamed, unmodified buffers without a buffer type",
-	callback = function(event)
-		local buffer_options = vim.bo[event.buf]
-		if isDeletableBuffer(event, buffer_options) then
-			deleteBuffer(event.buf)
-		end
-	end,
-})
-
-autocommand("BufWinEnter", {
+autocommand("BufEnter", {
 	group = "Buffers",
 	desc = "Change Neovim's Current Working Directory To The Directory Of Whatever File Enters The Buffer",
 	callback = function()
@@ -71,14 +78,6 @@ autocommand("BufWinEnter", {
 				vim.cmd("cd " .. file_path)
 			end
 		end
-	end,
-})
-autocommand("FileType", {
-	group = "Buffers",
-	desc = "Use appropriate quitting mechanism when in an oil.nvim buffer",
-	pattern = "oil",
-	callback = function()
-		vim.keymap.set("n", "<space>q", ":bdelete<CR>", { noremap = true, silent = true, buffer = true })
 	end,
 })
 -- Git
