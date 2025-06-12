@@ -9,7 +9,7 @@ getAbstractions()
 --}}
 
 local function setColorScheme(schemeName)
-	vim.cmd.colorscheme("noctishc")
+	vim.cmd.colorscheme(schemeName)
 end
 
 local function setBlackBackgroundColor()
