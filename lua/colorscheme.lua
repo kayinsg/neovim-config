@@ -26,7 +26,7 @@ local function setSearchHighlight()
 end
 
 local function applyColorSettings()
-	local colorScheme = "noctishc"
+	local colorScheme = "abscs"
 	setColorScheme(colorScheme)
 	-- setBlackBackgroundColor()
 	setLineNumberColors()
