@@ -1,12 +1,4 @@
--- Retrieve Abstractions
---{{
-function getAbstractions()
-	callback = require("abstractions")
-	return callback
-end
-
-getAbstractions()
---}}
+require("abstractions")
 
 local function setColorScheme(schemeName)
 	vim.cmd.colorscheme(schemeName)
