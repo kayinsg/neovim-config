@@ -21,6 +21,7 @@ local plugins = {
 	require("plugins.persistence"),
 	require("plugins.quicker"),
 	require("plugins.autopairs"),
+	require("plugins.peekaboo"),
 	{ "itchyny/lightline.vim" },
 	{ "tpope/vim-surround" },
 	{ "chrisgrieser/nvim-early-retirement" },
