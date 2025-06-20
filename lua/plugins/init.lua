@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
 	require("plugins.vimtest"),
 	require("plugins.oil"),
-	require("plugins.fzf"),
+	require("plugins.fzy"),
 	require("plugins.ripgrep"),
 	require("plugins.leap"),
 	require("plugins.persistence"),
