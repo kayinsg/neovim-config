@@ -20,6 +20,7 @@ require("plugins.init")
 
 require("options")
 require("plugins")
+require("programmingUtils.init")
 require("autocommands")
 require("colorscheme")
 require("foldmarkers")
