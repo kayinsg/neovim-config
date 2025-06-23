@@ -1,5 +1,13 @@
 require("abstractions")
 
+local function applyLightlineSettings()
+	vim.cmd([[
+    let g:lightline = {
+        \ 'colorscheme': 'ayu_dark',
+        \ }
+    ]])
+end
+
 local function setColorScheme(schemeName)
 	vim.cmd.colorscheme(schemeName)
 end
@@ -18,6 +26,7 @@ local function setSearchHighlight()
 end
 
 local function applyColorSettings()
+	applyLightlineSettings()
 	local colorScheme = "abscs"
 	setColorScheme(colorScheme)
 	-- setBlackBackgroundColor()
