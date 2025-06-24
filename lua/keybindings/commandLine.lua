@@ -31,3 +31,7 @@ Normal("o<Tab>", ":lua require('fzf-lua').oldfiles()<CR>")
 Normal("<Leader><Leader>", ":lua require('fzf-lua').command_history()<CR>")
 -- Grep Search History
 Normal("<leader>\\", ":lua require('fzf-lua').search_history()<CR>")
+
+vim.keymap.set("n", " q", function()
+	vim.fn.feedkeys("q:", "n")
+end)
